@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>멋진 디지털 시계</title>
+    <title>렌고쿠 시계 - 불타올라라!</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
         
         * {
             margin: 0;
@@ -15,15 +16,16 @@
         
         body {
             height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            background: radial-gradient(circle, #ffbd5b 0%, #ff512f 60%, #b31217 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Orbitron', monospace;
+            font-family: 'Shippori Mincho', 'Noto Sans KR', serif;
             overflow: hidden;
             position: relative;
         }
         
+        /* 불꽃 배경 애니메이션 */
         body::before {
             content: '';
             position: absolute;
@@ -32,121 +34,25 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
-            animation: bgShift 10s ease-in-out infinite alternate;
+                radial-gradient(circle at 30% 70%, rgba(255, 189, 91, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(255, 81, 47, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(179, 18, 23, 0.2) 0%, transparent 50%);
+            animation: flameShift 8s ease-in-out infinite alternate;
         }
         
-        @keyframes bgShift {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        
-        .clock-container {
-            position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 60px 80px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-10px) scale(1.02); }
-        }
-        
-        .time-display {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .time {
-            font-size: 5rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 
-                0 0 20px rgba(120, 219, 255, 0.8),
-                0 0 40px rgba(120, 219, 255, 0.4),
-                0 0 60px rgba(120, 219, 255, 0.2);
-            letter-spacing: 0.1em;
-            margin-bottom: 15px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { 
-                text-shadow: 
-                    0 0 20px rgba(120, 219, 255, 0.8),
-                    0 0 40px rgba(120, 219, 255, 0.4),
-                    0 0 60px rgba(120, 219, 255, 0.2);
+        @keyframes flameShift {
+            0% { 
+                opacity: 0.6;
+                transform: scale(1);
             }
-            to { 
-                text-shadow: 
-                    0 0 25px rgba(120, 219, 255, 1),
-                    0 0 50px rgba(120, 219, 255, 0.6),
-                    0 0 80px rgba(120, 219, 255, 0.4);
+            100% { 
+                opacity: 1;
+                transform: scale(1.1);
             }
         }
         
-        .date {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.8);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            letter-spacing: 0.05em;
-        }
-        
-        .seconds {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ff6b6b;
-            text-shadow: 
-                0 0 15px rgba(255, 107, 107, 0.8),
-                0 0 30px rgba(255, 107, 107, 0.4);
-            letter-spacing: 0.1em;
-            margin-top: 20px;
-            animation: pulse 1s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-        }
-        
-        .decoration {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(120, 219, 255, 0.1), rgba(255, 119, 198, 0.1));
-            animation: rotate 20s linear infinite;
-        }
-        
-        .decoration:nth-child(1) {
-            top: -100px;
-            left: -100px;
-        }
-        
-        .decoration:nth-child(2) {
-            bottom: -100px;
-            right: -100px;
-            animation-direction: reverse;
-            animation-duration: 15s;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .dots {
+        /* 불꽃 파티클 */
+        .flame-particles {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -155,55 +61,231 @@
             pointer-events: none;
         }
         
-        .dot {
+        .flame-particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(120, 219, 255, 0.6);
-            border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #ffbd5b, #ff512f);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flameFloat 4s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 189, 91, 0.8);
         }
         
-        .dot:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .dot:nth-child(2) { top: 80%; left: 20%; animation-delay: 1s; }
-        .dot:nth-child(3) { top: 30%; right: 15%; animation-delay: 0.5s; }
-        .dot:nth-child(4) { bottom: 40%; right: 10%; animation-delay: 1.5s; }
-        .dot:nth-child(5) { top: 60%; left: 80%; animation-delay: 2s; }
+        .flame-particle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .flame-particle:nth-child(2) { top: 80%; left: 25%; animation-delay: 1s; }
+        .flame-particle:nth-child(3) { top: 20%; right: 20%; animation-delay: 0.5s; }
+        .flame-particle:nth-child(4) { bottom: 30%; right: 15%; animation-delay: 1.5s; }
+        .flame-particle:nth-child(5) { top: 70%; left: 80%; animation-delay: 2s; }
+        .flame-particle:nth-child(6) { top: 40%; left: 60%; animation-delay: 0.8s; }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+        @keyframes flameFloat {
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: translateY(0px) scale(1) rotate(0deg);
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateY(-20px) scale(1.2) rotate(180deg);
+            }
+        }
+        
+        .clock-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 50px 70px;
+            border: 3px solid #ff512f;
+            box-shadow: 
+                0 0 50px rgba(255, 81, 47, 0.6),
+                inset 0 0 30px rgba(255, 189, 91, 0.2);
+            animation: flameGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes flameGlow {
+            0% { 
+                box-shadow: 
+                    0 0 50px rgba(255, 81, 47, 0.6),
+                    inset 0 0 30px rgba(255, 189, 91, 0.2);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 80px rgba(255, 81, 47, 0.8),
+                    inset 0 0 50px rgba(255, 189, 91, 0.4);
+            }
+        }
+        
+        /* 칼자국 장식 */
+        .clock-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #ff512f, #b31217, #ffbd5b, #ff512f);
+            background-size: 400% 400%;
+            animation: borderFlame 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes borderFlame {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .time-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .time {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 
+                0 0 20px rgba(255, 189, 91, 0.8),
+                0 0 40px rgba(255, 81, 47, 0.6),
+                0 0 60px rgba(179, 18, 23, 0.4);
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+            animation: timeGlow 2s ease-in-out infinite alternate;
+            font-family: 'Shippori Mincho', serif;
+        }
+        
+        @keyframes timeGlow {
+            from { 
+                text-shadow: 
+                    0 0 20px rgba(255, 189, 91, 0.8),
+                    0 0 40px rgba(255, 81, 47, 0.6),
+                    0 0 60px rgba(179, 18, 23, 0.4);
+            }
+            to { 
+                text-shadow: 
+                    0 0 30px rgba(255, 189, 91, 1),
+                    0 0 60px rgba(255, 81, 47, 0.8),
+                    0 0 90px rgba(179, 18, 23, 0.6);
+            }
+        }
+        
+        .date {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(255, 189, 91, 0.5);
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+        }
+        
+        .seconds {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffbd5b;
+            text-shadow: 
+                0 0 15px rgba(255, 189, 91, 0.8),
+                0 0 30px rgba(255, 189, 91, 0.4);
+            letter-spacing: 0.1em;
+            margin-bottom: 25px;
+            animation: secondsPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes secondsPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .quote {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 189, 91, 0.6);
+            text-align: center;
+            padding: 15px;
+            background: rgba(179, 18, 23, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 189, 91, 0.3);
+            animation: quoteGlow 4s ease-in-out infinite;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        @keyframes quoteGlow {
+            0%, 100% { 
+                background: rgba(179, 18, 23, 0.3);
+                border-color: rgba(255, 189, 91, 0.3);
+            }
+            50% { 
+                background: rgba(179, 18, 23, 0.5);
+                border-color: rgba(255, 189, 91, 0.6);
+            }
+        }
+        
+        /* 불꽃 장식 요소 */
+        .flame-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: 
+                radial-gradient(circle at 30% 30%, #ffbd5b 0%, #ff512f 50%, #b31217 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flameRotate 8s linear infinite;
+            opacity: 0.3;
+        }
+        
+        .flame-decoration:nth-child(1) {
+            top: -75px;
+            left: -75px;
+        }
+        
+        .flame-decoration:nth-child(2) {
+            bottom: -75px;
+            right: -75px;
+            animation-direction: reverse;
+            animation-duration: 6s;
+        }
+        
+        @keyframes flameRotate {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(1.1); }
         }
         
         @media (max-width: 768px) {
             .clock-container {
-                padding: 40px 50px;
+                padding: 30px 40px;
             }
             
             .time {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             
             .date {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             
             .seconds {
-                font-size: 1.5rem;
+                font-size: 2rem;
+            }
+            
+            .quote {
+                font-size: 0.9rem;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="decoration"></div>
-    <div class="decoration"></div>
+    <div class="flame-decoration"></div>
+    <div class="flame-decoration"></div>
     
-    <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+    <div class="flame-particles">
+        <div class="flame-particle"></div>
+        <div class="flame-particle"></div>
+        <div class="flame-particle"></div>
+        <div class="flame-particle"></div>
+        <div class="flame-particle"></div>
+        <div class="flame-particle"></div>
     </div>
     
     <div class="clock-container">
@@ -211,10 +293,27 @@
             <div class="time" id="time">00:00</div>
             <div class="date" id="date">Loading...</div>
             <div class="seconds" id="seconds">00</div>
+            <div class="quote" id="quote">불타올라라! 내 마음!</div>
         </div>
     </div>
     
     <script>
+        // 렌고쿠 명대사 배열
+        const rengokuQuotes = [
+            "나는 내 책임을 다한다!",
+            "불타올라라! 내 마음!",
+            "심장에 불을 지펴라!",
+            "열정이란 불꽃처럼 타오르는 마음이다!",
+            "약한 자를 지키는 것이 강한 자의 의무다!",
+            "절망하지 마라! 희망은 항상 있다!",
+            "내 불꽃은 꺼지지 않는다!",
+            "열정으로 모든 것을 이겨내자!",
+            "불꽃의 힘으로 앞으로 나아가자!",
+            "내 마음은 영원히 타오른다!"
+        ];
+        
+        let currentQuoteIndex = 0;
+        
         function updateClock() {
             const now = new Date();
             
@@ -238,41 +337,71 @@
             document.getElementById('date').textContent = dateString;
         }
         
+        function updateQuote() {
+            // 10초마다 명대사 변경
+            currentQuoteIndex = (currentQuoteIndex + 1) % rengokuQuotes.length;
+            const quoteElement = document.getElementById('quote');
+            
+            // 페이드 아웃
+            quoteElement.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteElement.textContent = rengokuQuotes[currentQuoteIndex];
+                quoteElement.style.opacity = '1';
+            }, 500);
+        }
+        
         // 시계 시작
         updateClock();
         setInterval(updateClock, 1000);
         
-        // 키보드 이벤트로 색상 테마 변경
-        let colorTheme = 0;
-        const themes = [
-            { primary: 'rgba(120, 219, 255, 0.8)', secondary: 'rgba(255, 107, 107, 0.8)' },
-            { primary: 'rgba(255, 119, 198, 0.8)', secondary: 'rgba(120, 255, 119, 0.8)' },
-            { primary: 'rgba(255, 206, 84, 0.8)', secondary: 'rgba(138, 119, 255, 0.8)' }
-        ];
+        // 명대사 업데이트 시작
+        updateQuote();
+        setInterval(updateQuote, 10000);
         
+        // 키보드 이벤트로 추가 효과
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
-                colorTheme = (colorTheme + 1) % themes.length;
-                const theme = themes[colorTheme];
+                // 스페이스바로 즉시 명대사 변경
+                updateQuote();
                 
-                document.documentElement.style.setProperty('--primary-color', theme.primary);
-                document.documentElement.style.setProperty('--secondary-color', theme.secondary);
+                // 화면에 불꽃 효과 추가
+                const flameEffect = document.createElement('div');
+                flameEffect.style.position = 'fixed';
+                flameEffect.style.top = '50%';
+                flameEffect.style.left = '50%';
+                flameEffect.style.transform = 'translate(-50%, -50%)';
+                flameEffect.style.width = '200px';
+                flameEffect.style.height = '200px';
+                flameEffect.style.background = 'radial-gradient(circle, #ffbd5b, #ff512f, #b31217)';
+                flameEffect.style.borderRadius = '50%';
+                flameEffect.style.zIndex = '1000';
+                flameEffect.style.animation = 'flameBurst 1s ease-out forwards';
+                flameEffect.style.pointerEvents = 'none';
                 
-                const timeElement = document.getElementById('time');
-                const secondsElement = document.getElementById('seconds');
+                document.body.appendChild(flameEffect);
                 
-                timeElement.style.textShadow = `
-                    0 0 20px ${theme.primary},
-                    0 0 40px ${theme.primary.replace('0.8', '0.4')},
-                    0 0 60px ${theme.primary.replace('0.8', '0.2')}
-                `;
-                
-                secondsElement.style.textShadow = `
-                    0 0 15px ${theme.secondary},
-                    0 0 30px ${theme.secondary.replace('0.8', '0.4')}
-                `;
+                setTimeout(() => {
+                    document.body.removeChild(flameEffect);
+                }, 1000);
             }
         });
+        
+        // CSS 애니메이션 추가
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes flameBurst {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0);
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translate(-50%, -50%) scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
