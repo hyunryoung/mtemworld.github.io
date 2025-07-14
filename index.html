@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멋진 디지털 시계</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', monospace;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            animation: bgShift 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bgShift {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .clock-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 80px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
+        }
+        
+        .time-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .time {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 
+                0 0 20px rgba(120, 219, 255, 0.8),
+                0 0 40px rgba(120, 219, 255, 0.4),
+                0 0 60px rgba(120, 219, 255, 0.2);
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { 
+                text-shadow: 
+                    0 0 20px rgba(120, 219, 255, 0.8),
+                    0 0 40px rgba(120, 219, 255, 0.4),
+                    0 0 60px rgba(120, 219, 255, 0.2);
+            }
+            to { 
+                text-shadow: 
+                    0 0 25px rgba(120, 219, 255, 1),
+                    0 0 50px rgba(120, 219, 255, 0.6),
+                    0 0 80px rgba(120, 219, 255, 0.4);
+            }
+        }
+        
+        .date {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.05em;
+        }
+        
+        .seconds {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            text-shadow: 
+                0 0 15px rgba(255, 107, 107, 0.8),
+                0 0 30px rgba(255, 107, 107, 0.4);
+            letter-spacing: 0.1em;
+            margin-top: 20px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        .decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(120, 219, 255, 0.1), rgba(255, 119, 198, 0.1));
+            animation: rotate 20s linear infinite;
+        }
+        
+        .decoration:nth-child(1) {
+            top: -100px;
+            left: -100px;
+        }
+        
+        .decoration:nth-child(2) {
+            bottom: -100px;
+            right: -100px;
+            animation-direction: reverse;
+            animation-duration: 15s;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(120, 219, 255, 0.6);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        .dot:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .dot:nth-child(2) { top: 80%; left: 20%; animation-delay: 1s; }
+        .dot:nth-child(3) { top: 30%; right: 15%; animation-delay: 0.5s; }
+        .dot:nth-child(4) { bottom: 40%; right: 10%; animation-delay: 1.5s; }
+        .dot:nth-child(5) { top: 60%; left: 80%; animation-delay: 2s; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @media (max-width: 768px) {
+            .clock-container {
+                padding: 40px 50px;
+            }
+            
+            .time {
+                font-size: 3.5rem;
+            }
+            
+            .date {
+                font-size: 1.2rem;
+            }
+            
+            .seconds {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    
+    <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    
+    <div class="clock-container">
+        <div class="time-display">
+            <div class="time" id="time">00:00</div>
+            <div class="date" id="date">Loading...</div>
+            <div class="seconds" id="seconds">00</div>
+        </div>
+    </div>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // 시간 (24시간 형식)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // 날짜
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            };
+            const dateString = now.toLocaleDateString('ko-KR', options);
+            
+            // DOM 업데이트
+            document.getElementById('time').textContent = `${hours}:${minutes}`;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('date').textContent = dateString;
+        }
+        
+        // 시계 시작
+        updateClock();
+        setInterval(updateClock, 1000);
+        
+        // 키보드 이벤트로 색상 테마 변경
+        let colorTheme = 0;
+        const themes = [
+            { primary: 'rgba(120, 219, 255, 0.8)', secondary: 'rgba(255, 107, 107, 0.8)' },
+            { primary: 'rgba(255, 119, 198, 0.8)', secondary: 'rgba(120, 255, 119, 0.8)' },
+            { primary: 'rgba(255, 206, 84, 0.8)', secondary: 'rgba(138, 119, 255, 0.8)' }
+        ];
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                colorTheme = (colorTheme + 1) % themes.length;
+                const theme = themes[colorTheme];
+                
+                document.documentElement.style.setProperty('--primary-color', theme.primary);
+                document.documentElement.style.setProperty('--secondary-color', theme.secondary);
+                
+                const timeElement = document.getElementById('time');
+                const secondsElement = document.getElementById('seconds');
+                
+                timeElement.style.textShadow = `
+                    0 0 20px ${theme.primary},
+                    0 0 40px ${theme.primary.replace('0.8', '0.4')},
+                    0 0 60px ${theme.primary.replace('0.8', '0.2')}
+                `;
+                
+                secondsElement.style.textShadow = `
+                    0 0 15px ${theme.secondary},
+                    0 0 30px ${theme.secondary.replace('0.8', '0.4')}
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
